@@ -7,6 +7,7 @@ import mongoose from "mongoose"
 import { MongoMemoryServer } from "mongodb-memory-server"
 import { universityRouter } from "./routes/universityRoutes"
 import { statsRouter } from "./routes/statsRoutes"
+import { seedIfEmpty } from "./seed"
 
 const app = express()
 const PORT = process.env["PORT"] ?? "5000"
@@ -39,6 +40,8 @@ async function start(): Promise<void> {
     await mongoose.connect(uri)
     console.log("Connected to in-memory MongoDB at", uri)
   }
+
+  await seedIfEmpty()
 
   app.listen(parseInt(PORT, 10), () => {
     console.log(`Server running on http://localhost:${PORT}`)
