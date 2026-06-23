@@ -4,6 +4,8 @@ import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Layout from "@/components/Layout";
 import Dashboard from "@/pages/Dashboard";
+import Countries from "@/pages/Countries";
+import CountryDetail from "@/pages/CountryDetail";
 import Universities from "@/pages/Universities";
 import AddEditUniversity from "@/pages/AddEditUniversity";
 import UniversityDetail from "@/pages/UniversityDetail";
@@ -28,6 +30,8 @@ export default function App(): React.ReactElement {
           <Routes>
             <Route element={<Layout />}>
               <Route index element={<Dashboard />} />
+              <Route path="countries" element={<Countries />} />
+              <Route path="countries/:id" element={<CountryDetail />} />
               <Route path="universities" element={<Universities />} />
               <Route path="universities/new" element={<AddEditUniversity />} />
               <Route path="universities/:id" element={<UniversityDetail />} />

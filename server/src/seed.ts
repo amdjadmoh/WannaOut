@@ -1,4 +1,168 @@
+import { Country } from "./models/Country"
 import { University } from "./models/University"
+
+const countries = [
+  {
+    name: "Germany",
+    currency: "EUR",
+    livingCostEstimate: 900,
+    visaRequirements:
+      "Student visa (National Visa D). Proof of funds via blocked account (Sperrkonto) with €11,208/year. Health insurance mandatory. Visa interview at German embassy required.",
+    visaAcceptanceRate: 92,
+    visaBankAccountAmount: 11208,
+    visaBankAccountLocked: true,
+  },
+  {
+    name: "Netherlands",
+    currency: "EUR",
+    livingCostEstimate: 1100,
+    visaRequirements:
+      "MVV entry visa + residence permit. Proof of funds €1,200/month. TB test required for some nationalities. University sponsors the visa application.",
+    visaAcceptanceRate: 88,
+    visaBankAccountAmount: 14400,
+    visaBankAccountLocked: false,
+  },
+  {
+    name: "Switzerland",
+    currency: "CHF",
+    livingCostEstimate: 1800,
+    visaRequirements:
+      "National D visa for studies. Proof of sufficient funds (CHF 21,000/year). Cantonal migration office processes permits. Must leave Schengen to apply from home country.",
+    visaAcceptanceRate: 78,
+    visaBankAccountAmount: 21000,
+    visaBankAccountLocked: false,
+  },
+  {
+    name: "Sweden",
+    currency: "SEK",
+    livingCostEstimate: 900,
+    visaRequirements:
+      "Residence permit for studies. Proof of funds SEK 10,314/month. Online application via Migration Agency. Biometrics required at embassy.",
+    visaAcceptanceRate: 85,
+    visaBankAccountAmount: 123768,
+    visaBankAccountLocked: false,
+  },
+  {
+    name: "Italy",
+    currency: "EUR",
+    livingCostEstimate: 750,
+    visaRequirements:
+      "Student visa (Type D). Proof of funds €600/month, accommodation proof, and return flight. Visa appointment at Italian consulate — often long wait times.",
+    visaAcceptanceRate: 90,
+    visaBankAccountAmount: 7200,
+    visaBankAccountLocked: false,
+  },
+  {
+    name: "Denmark",
+    currency: "DKK",
+    livingCostEstimate: 1300,
+    visaRequirements:
+      "Student residence permit (ST1). Proof of funds DKK 6,397/month. Online application with biometrics. Processing time 2-3 months.",
+    visaAcceptanceRate: 82,
+    visaBankAccountAmount: 76764,
+    visaBankAccountLocked: false,
+  },
+  {
+    name: "Finland",
+    currency: "EUR",
+    livingCostEstimate: 850,
+    visaRequirements:
+      "Student residence permit. Proof of funds €6,720/year. Apply online via Enter Finland portal. Biometrics at Finnish embassy. Processing 1-2 months.",
+    visaAcceptanceRate: 87,
+    visaBankAccountAmount: 6720,
+    visaBankAccountLocked: false,
+  },
+  {
+    name: "United Kingdom",
+    currency: "GBP",
+    livingCostEstimate: 1100,
+    visaRequirements:
+      "Student visa (Tier 4). Proof of funds £1,023/month outside London (£1,334 in London). CAS from university required. NHS surcharge £776/year. Biometrics required.",
+    visaAcceptanceRate: 96,
+    visaBankAccountAmount: 12276,
+    visaBankAccountLocked: false,
+  },
+  {
+    name: "France",
+    currency: "EUR",
+    livingCostEstimate: 1000,
+    visaRequirements:
+      "VLS-TS student visa. Proof of funds €615/month. Campus France process for many countries. OFII validation within 3 months of arrival.",
+    visaAcceptanceRate: 89,
+    visaBankAccountAmount: 7380,
+    visaBankAccountLocked: false,
+  },
+  {
+    name: "Poland",
+    currency: "PLN",
+    livingCostEstimate: 500,
+    visaRequirements:
+      "National D visa for studies. Proof of funds PLN 800/month. Simple process compared to Western Europe. Visa processed in 2-4 weeks typically.",
+    visaAcceptanceRate: 93,
+    visaBankAccountAmount: 9600,
+    visaBankAccountLocked: false,
+  },
+  {
+    name: "Belgium",
+    currency: "EUR",
+    livingCostEstimate: 850,
+    visaRequirements:
+      "Long-stay student visa (Type D). Proof of funds €800/month. Medical certificate required. University assists with residence permit application.",
+    visaAcceptanceRate: 86,
+    visaBankAccountAmount: 9600,
+    visaBankAccountLocked: false,
+  },
+  {
+    name: "Spain",
+    currency: "EUR",
+    livingCostEstimate: 750,
+    visaRequirements:
+      "Student visa (Type D). Proof of funds €600/month. Medical certificate and criminal record check. Initial 90-day visa, then apply for TIE card in Spain.",
+    visaAcceptanceRate: 91,
+    visaBankAccountAmount: 7200,
+    visaBankAccountLocked: false,
+  },
+  {
+    name: "Norway",
+    currency: "NOK",
+    livingCostEstimate: 1400,
+    visaRequirements:
+      "Student residence permit. Proof of funds NOK 137,907/year. Must deposit to UDI account or show bank statement. Tuition-free but high living costs.",
+    visaAcceptanceRate: 84,
+    visaBankAccountAmount: 137907,
+    visaBankAccountLocked: true,
+  },
+  {
+    name: "Czech Republic",
+    currency: "CZK",
+    livingCostEstimate: 550,
+    visaRequirements:
+      "Long-term residence permit for studies. Proof of funds CZK 81,400/year. Criminal record extract required. Purpose-built accommodation proof helps application.",
+    visaAcceptanceRate: 94,
+    visaBankAccountAmount: 81400,
+    visaBankAccountLocked: false,
+  },
+  {
+    name: "Austria",
+    currency: "EUR",
+    livingCostEstimate: 900,
+    visaRequirements:
+      "Student residence permit. Proof of funds €585/month. Pre-approval from university needed. Quota system applies for some nationalities.",
+    visaAcceptanceRate: 83,
+    visaBankAccountAmount: 7020,
+    visaBankAccountLocked: false,
+  },
+  {
+    name: "Ireland",
+    currency: "EUR",
+    livingCostEstimate: 1200,
+    visaRequirements:
+      "Student visa (Stamp 2). Proof of funds €7,000/year. Private health insurance required. GNIB registration within 90 days. Strong English-speaking tech hub.",
+    visaAcceptanceRate: 95,
+    visaBankAccountAmount: 7000,
+    visaBankAccountLocked: false,
+  },
+]
 
 const universities = [
   {
@@ -15,13 +179,19 @@ const universities = [
     livingCostEstimate: 1100,
     applicationDeadline: new Date("2026-05-31"),
     applicationStatus: "Accepted",
-    visaRequirements: "Proof of funds €11,208 per year, blocked account",
-    requiredDocuments: ["CV", "Transcripts", "Bachelor's degree", "Statement of purpose", "Letters of recommendation"],
+    requiredDocuments: [
+      "CV",
+      "Transcripts",
+      "Bachelor's degree",
+      "Statement of purpose",
+      "Letters of recommendation",
+    ],
     gpaRequirement: 2.5,
     ieltsRequirement: 6.5,
     scholarshipAvailable: false,
     websiteUrl: "https://www.tum.de",
-    notes: "No tuition for EU students, only semester contribution. Strong research focus."
+    notes:
+      "No tuition for EU students, only semester contribution. Strong research focus.",
   },
   {
     name: "Delft University of Technology",
@@ -37,14 +207,21 @@ const universities = [
     livingCostEstimate: 1000,
     applicationDeadline: new Date("2026-04-01"),
     applicationStatus: "Applied",
-    visaRequirements: "MVV student visa, proof of funds €1,200/month",
-    requiredDocuments: ["CV", "Transcripts", "Motivation letter", "Reference letters", "BSc thesis summary"],
+    requiredDocuments: [
+      "CV",
+      "Transcripts",
+      "Motivation letter",
+      "Reference letters",
+      "BSc thesis summary",
+    ],
     gpaRequirement: 3.0,
     ieltsRequirement: 7.0,
     scholarshipAvailable: true,
-    scholarshipDetails: "Holland Scholarship (€5,000 one-time), TU Delft Excellence Scholarship",
+    scholarshipDetails:
+      "Holland Scholarship (€5,000 one-time), TU Delft Excellence Scholarship",
     websiteUrl: "https://www.tudelft.nl",
-    notes: "Highly competitive program. TU Delft also requires specific course credits in control systems and mathematics."
+    notes:
+      "Highly competitive program. Requires specific course credits in control systems and mathematics.",
   },
   {
     name: "ETH Zurich",
@@ -60,14 +237,19 @@ const universities = [
     livingCostEstimate: 1800,
     applicationDeadline: new Date("2025-12-15"),
     applicationStatus: "Rejected",
-    visaRequirements: "Student visa after acceptance, proof of sufficient funds",
-    requiredDocuments: ["CV", "Transcripts", "Motivation letter", "Reference letters", "BSc diploma"],
+    requiredDocuments: [
+      "CV",
+      "Transcripts",
+      "Motivation letter",
+      "Reference letters",
+      "BSc diploma",
+    ],
     gpaRequirement: 3.5,
     ieltsRequirement: 7.0,
     scholarshipAvailable: true,
     scholarshipDetails: "ETH-D Scholarship, ESOP",
     websiteUrl: "https://www.ethz.ch",
-    notes: "Rejected — extremely competitive. Requires top 10% class ranking."
+    notes: "Rejected — extremely competitive. Requires top 10% class ranking.",
   },
   {
     name: "KTH Royal Institute of Technology",
@@ -83,14 +265,20 @@ const universities = [
     livingCostEstimate: 900,
     applicationDeadline: new Date("2026-01-15"),
     applicationStatus: "Applied",
-    visaRequirements: "Residence permit for studies, proof of funds SEK 10,314/month",
-    requiredDocuments: ["CV", "Transcripts", "Motivation letter", "Letters of recommendation"],
+    requiredDocuments: [
+      "CV",
+      "Transcripts",
+      "Motivation letter",
+      "Letters of recommendation",
+    ],
     gpaRequirement: 3.0,
     ieltsRequirement: 6.5,
     scholarshipAvailable: true,
-    scholarshipDetails: "KTH Scholarship (covers tuition), Swedish Institute Scholarship",
+    scholarshipDetails:
+      "KTH Scholarship (covers tuition), Swedish Institute Scholarship",
     websiteUrl: "https://www.kth.se",
-    notes: "Scholarship deadline earlier than admission deadline. Strong industry connections in Stockholm."
+    notes:
+      "Scholarship deadline earlier than admission deadline. Strong industry connections in Stockholm.",
   },
   {
     name: "University of Amsterdam",
@@ -106,13 +294,18 @@ const universities = [
     livingCostEstimate: 1200,
     applicationDeadline: new Date("2026-03-01"),
     applicationStatus: "Preparing",
-    visaRequirements: "MVV student visa, proof of funds",
-    requiredDocuments: ["CV", "Transcripts", "Motivation letter", "Writing sample"],
+    requiredDocuments: [
+      "CV",
+      "Transcripts",
+      "Motivation letter",
+      "Writing sample",
+    ],
     ieltsRequirement: 7.0,
     scholarshipAvailable: true,
     scholarshipDetails: "Amsterdam Merit Scholarship, Holland Scholarship",
     websiteUrl: "https://www.uva.nl",
-    notes: "Two-year program. First year coursework, second year thesis + internship."
+    notes:
+      "Two-year program. First year coursework, second year thesis + internship.",
   },
   {
     name: "Politecnico di Milano",
@@ -128,14 +321,19 @@ const universities = [
     livingCostEstimate: 800,
     applicationDeadline: new Date("2026-05-31"),
     applicationStatus: "Wishlist",
-    visaRequirements: "Student visa, proof of accommodation and funds",
-    requiredDocuments: ["CV", "Transcripts", "Motivation letter", "Reference letters"],
+    requiredDocuments: [
+      "CV",
+      "Transcripts",
+      "Motivation letter",
+      "Reference letters",
+    ],
     gpaRequirement: 2.8,
     ieltsRequirement: 6.0,
     scholarshipAvailable: true,
     scholarshipDetails: "Merit-based tuition reduction, DSU regional scholarship",
     websiteUrl: "https://www.polimi.it",
-    notes: "Income-based tuition — can be reduced significantly. Milan is expensive but great lifestyle."
+    notes:
+      "Income-based tuition — can be reduced significantly. Milan is expensive but great lifestyle.",
   },
   {
     name: "University of Copenhagen",
@@ -151,13 +349,18 @@ const universities = [
     livingCostEstimate: 1300,
     applicationDeadline: new Date("2026-01-15"),
     applicationStatus: "Wishlist",
-    visaRequirements: "Student residence permit, proof of funds DKK 6,397/month",
-    requiredDocuments: ["CV", "Transcripts", "Statement of purpose", "Course descriptions"],
+    requiredDocuments: [
+      "CV",
+      "Transcripts",
+      "Statement of purpose",
+      "Course descriptions",
+    ],
     gpaRequirement: 3.0,
     ieltsRequirement: 6.5,
     scholarshipAvailable: false,
     websiteUrl: "https://www.ku.dk",
-    notes: "Free for EU/EEA students. Non-EU tuition is steep. Copenhagen consistently ranked most livable city."
+    notes:
+      "Free for EU/EEA students. Non-EU tuition is steep. Copenhagen consistently ranked most livable city.",
   },
   {
     name: "TU Berlin",
@@ -173,12 +376,17 @@ const universities = [
     livingCostEstimate: 950,
     applicationDeadline: new Date("2026-06-15"),
     applicationStatus: "Wishlist",
-    visaRequirements: "Proof of funds, blocked account",
-    requiredDocuments: ["CV", "Transcripts", "Motivation letter", "BSc certificate"],
+    requiredDocuments: [
+      "CV",
+      "Transcripts",
+      "Motivation letter",
+      "BSc certificate",
+    ],
     ieltsRequirement: 6.0,
     scholarshipAvailable: false,
     websiteUrl: "https://www.tu.berlin",
-    notes: "No tuition fees in Berlin, only semester contribution including public transport ticket. Strong startup scene."
+    notes:
+      "No tuition fees in Berlin, only semester contribution including public transport ticket. Strong startup scene.",
   },
   {
     name: "Aalto University",
@@ -194,14 +402,20 @@ const universities = [
     livingCostEstimate: 850,
     applicationDeadline: new Date("2026-01-02"),
     applicationStatus: "Preparing",
-    visaRequirements: "Student residence permit, proof of funds €6,720/year",
-    requiredDocuments: ["CV", "Transcripts", "Motivation letter", "Portfolio recommended"],
+    requiredDocuments: [
+      "CV",
+      "Transcripts",
+      "Motivation letter",
+      "Portfolio recommended",
+    ],
     gpaRequirement: 3.2,
     ieltsRequirement: 6.5,
     scholarshipAvailable: true,
-    scholarshipDetails: "Aalto Excellence Scholarship (full or partial tuition waiver)",
+    scholarshipDetails:
+      "Aalto Excellence Scholarship (full or partial tuition waiver)",
     websiteUrl: "https://www.aalto.fi",
-    notes: "Strong design focus. Portfolio is highly recommended even though not mandatory. Early deadline."
+    notes:
+      "Strong design focus. Portfolio is highly recommended even though not mandatory. Early deadline.",
   },
   {
     name: "University of Edinburgh",
@@ -217,14 +431,19 @@ const universities = [
     livingCostEstimate: 1000,
     applicationDeadline: new Date("2026-07-31"),
     applicationStatus: "Applied",
-    visaRequirements: "Student visa, proof of funds £1,023/month outside London",
-    requiredDocuments: ["CV", "Transcripts", "Personal statement", "References"],
+    requiredDocuments: [
+      "CV",
+      "Transcripts",
+      "Personal statement",
+      "References",
+    ],
     gpaRequirement: 3.3,
     ieltsRequirement: 7.0,
     scholarshipAvailable: true,
     scholarshipDetails: "Edinburgh Global Masters Scholarship, Chevening",
     websiteUrl: "https://www.ed.ac.uk",
-    notes: "Rolling admissions — earlier application recommended. One-year intensive program."
+    notes:
+      "Rolling admissions — earlier application recommended. One-year intensive program.",
   },
   {
     name: "Sorbonne University",
@@ -240,13 +459,18 @@ const universities = [
     livingCostEstimate: 1100,
     applicationDeadline: new Date("2026-05-15"),
     applicationStatus: "Wishlist",
-    visaRequirements: "Student visa, proof of funds €615/month",
-    requiredDocuments: ["CV", "Transcripts", "Cover letter", "Reference letters"],
+    requiredDocuments: [
+      "CV",
+      "Transcripts",
+      "Cover letter",
+      "Reference letters",
+    ],
     ieltsRequirement: 6.0,
     scholarshipAvailable: true,
     scholarshipDetails: "Eiffel Excellence Scholarship, Erasmus+",
     websiteUrl: "https://www.sorbonne-universite.fr",
-    notes: "Public university with low tuition. Living in Paris is the main cost factor."
+    notes:
+      "Public university with low tuition. Living in Paris is the main cost factor.",
   },
   {
     name: "University of Warsaw",
@@ -262,12 +486,16 @@ const universities = [
     livingCostEstimate: 500,
     applicationDeadline: new Date("2026-07-15"),
     applicationStatus: "Wishlist",
-    visaRequirements: "Student visa, proof of funds PLN 800/month",
-    requiredDocuments: ["High school diploma", "Transcripts", "English proficiency proof"],
+    requiredDocuments: [
+      "High school diploma",
+      "Transcripts",
+      "English proficiency proof",
+    ],
     ieltsRequirement: 6.0,
     scholarshipAvailable: false,
     websiteUrl: "https://www.uw.edu.pl",
-    notes: "Very affordable cost of living. Warsaw is a growing tech hub in Eastern Europe."
+    notes:
+      "Very affordable cost of living. Warsaw is a growing tech hub in Eastern Europe.",
   },
   {
     name: "KU Leuven",
@@ -283,14 +511,19 @@ const universities = [
     livingCostEstimate: 850,
     applicationDeadline: new Date("2026-06-01"),
     applicationStatus: "Preparing",
-    visaRequirements: "Student visa, proof of funds €800/month",
-    requiredDocuments: ["CV", "Transcripts", "Motivation letter", "Course descriptions"],
+    requiredDocuments: [
+      "CV",
+      "Transcripts",
+      "Motivation letter",
+      "Course descriptions",
+    ],
     gpaRequirement: 3.0,
     ieltsRequirement: 6.5,
     scholarshipAvailable: true,
     scholarshipDetails: "VLIR-UOS Scholarship, Master Mind Scholarship",
     websiteUrl: "https://www.kuleuven.be",
-    notes: "Belgium's highest-ranked university. Strong in AI and security research."
+    notes:
+      "Belgium's highest-ranked university. Strong in AI and security research.",
   },
   {
     name: "University of Barcelona",
@@ -306,12 +539,12 @@ const universities = [
     livingCostEstimate: 750,
     applicationDeadline: new Date("2026-06-30"),
     applicationStatus: "Wishlist",
-    visaRequirements: "Student visa, proof of funds €600/month",
     requiredDocuments: ["CV", "Transcripts", "Motivation letter"],
     ieltsRequirement: 6.0,
     scholarshipAvailable: false,
     websiteUrl: "https://www.ub.edu",
-    notes: "Great value for the cost. Barcelona has a growing tech scene and great weather."
+    notes:
+      "Great value for the cost. Barcelona has a growing tech scene and great weather.",
   },
   {
     name: "RWTH Aachen University",
@@ -327,14 +560,20 @@ const universities = [
     livingCostEstimate: 800,
     applicationDeadline: new Date("2026-03-01"),
     applicationStatus: "Accepted",
-    visaRequirements: "Proof of funds, blocked account",
-    requiredDocuments: ["CV", "Transcripts", "GRE recommended", "Statement of purpose", "Letters of recommendation"],
+    requiredDocuments: [
+      "CV",
+      "Transcripts",
+      "GRE recommended",
+      "Statement of purpose",
+      "Letters of recommendation",
+    ],
     gpaRequirement: 2.5,
     ieltsRequirement: 6.5,
     toeflRequirement: 90,
     scholarshipAvailable: false,
     websiteUrl: "https://www.rwth-aachen.de",
-    notes: "No tuition, only semester fee. Very strong in engineering. Aachen is cheaper than Munich or Berlin."
+    notes:
+      "No tuition, only semester fee. Very strong in engineering. Aachen is cheaper than Munich or Berlin.",
   },
   {
     name: "University of Oslo",
@@ -350,13 +589,18 @@ const universities = [
     livingCostEstimate: 1400,
     applicationDeadline: new Date("2025-12-01"),
     applicationStatus: "Rejected",
-    visaRequirements: "Student residence permit, proof of funds NOK 137,907/year",
-    requiredDocuments: ["CV", "Transcripts", "Motivation letter", "Reference letters"],
+    requiredDocuments: [
+      "CV",
+      "Transcripts",
+      "Motivation letter",
+      "Reference letters",
+    ],
     gpaRequirement: 3.0,
     ieltsRequirement: 6.5,
     scholarshipAvailable: false,
     websiteUrl: "https://www.uio.no",
-    notes: "Free tuition for all students regardless of nationality. Norway is expensive to live in. Rejected due to limited spots."
+    notes:
+      "Free tuition for all students regardless of nationality. Norway is expensive to live in. Rejected due to limited spots.",
   },
   {
     name: "University of Bologna",
@@ -372,13 +616,13 @@ const universities = [
     livingCostEstimate: 700,
     applicationDeadline: new Date("2026-07-15"),
     applicationStatus: "Wishlist",
-    visaRequirements: "Student visa, proof of funds",
     requiredDocuments: ["CV", "Transcripts", "Cover letter", "Writing sample"],
     ieltsRequirement: 6.0,
     scholarshipAvailable: true,
     scholarshipDetails: "Unibo Action 1&2 (tuition waiver + grant), Erasmus+",
     websiteUrl: "https://www.unibo.it",
-    notes: "Oldest university in the Western world. Bologna is very student-friendly and affordable."
+    notes:
+      "Oldest university in the Western world. Bologna is very student-friendly and affordable.",
   },
   {
     name: "Charles University",
@@ -394,12 +638,17 @@ const universities = [
     livingCostEstimate: 550,
     applicationDeadline: new Date("2026-06-30"),
     applicationStatus: "Enrolled",
-    visaRequirements: "Student visa, proof of funds CZK 81,400/year",
-    requiredDocuments: ["High school diploma", "Transcripts", "English proficiency proof", "Entrance exam"],
+    requiredDocuments: [
+      "High school diploma",
+      "Transcripts",
+      "English proficiency proof",
+      "Entrance exam",
+    ],
     ieltsRequirement: 6.0,
     scholarshipAvailable: false,
     websiteUrl: "https://www.cuni.cz",
-    notes: "Enrolled for fall 2026. Prague is beautiful and very affordable. Strong CS program."
+    notes:
+      "Enrolled for fall 2026. Prague is beautiful and very affordable. Strong CS program.",
   },
   {
     name: "University of Vienna",
@@ -415,12 +664,17 @@ const universities = [
     livingCostEstimate: 900,
     applicationDeadline: new Date("2026-06-05"),
     applicationStatus: "Wishlist",
-    visaRequirements: "Student visa, proof of funds €585/month",
-    requiredDocuments: ["CV", "Transcripts", "BSc diploma", "Course descriptions"],
+    requiredDocuments: [
+      "CV",
+      "Transcripts",
+      "BSc diploma",
+      "Course descriptions",
+    ],
     ieltsRequirement: 6.5,
     scholarshipAvailable: false,
     websiteUrl: "https://www.univie.ac.at",
-    notes: "Very affordable for EU students. Vienna consistently ranked world's most livable city."
+    notes:
+      "Very affordable for EU students. Vienna consistently ranked world's most livable city.",
   },
   {
     name: "Trinity College Dublin",
@@ -436,15 +690,21 @@ const universities = [
     livingCostEstimate: 1200,
     applicationDeadline: new Date("2026-06-30"),
     applicationStatus: "Applied",
-    visaRequirements: "Student visa, proof of funds €7,000/year",
-    requiredDocuments: ["CV", "Transcripts", "Personal statement", "References"],
+    requiredDocuments: [
+      "CV",
+      "Transcripts",
+      "Personal statement",
+      "References",
+    ],
     gpaRequirement: 3.0,
     ieltsRequirement: 6.5,
     scholarshipAvailable: true,
-    scholarshipDetails: "Trinity International Scholarship, Government of Ireland Scholarship",
+    scholarshipDetails:
+      "Trinity International Scholarship, Government of Ireland Scholarship",
     websiteUrl: "https://www.tcd.ie",
-    notes: "Ireland's top university. Dublin has a strong tech sector (Google, Facebook, Stripe HQs)."
-  }
+    notes:
+      "Ireland's top university. Dublin has a strong tech sector (Google, Facebook, Stripe HQs).",
+  },
 ]
 
 export async function seedIfEmpty(): Promise<number> {
@@ -454,9 +714,13 @@ export async function seedIfEmpty(): Promise<number> {
     return 0
   }
 
-  const result = await University.insertMany(universities)
-  console.log(`Seeded ${result.length} universities`)
-  return result.length
+  const countryResult = await Country.insertMany(countries)
+  console.log(`Seeded ${countryResult.length} countries`)
+
+  const uniResult = await University.insertMany(universities)
+  console.log(`Seeded ${uniResult.length} universities`)
+
+  return uniResult.length
 }
 
 // Standalone runner: npx tsx src/seed.ts
@@ -477,18 +741,15 @@ async function run(): Promise<void> {
     console.log(`Connected to in-memory MongoDB at ${memServer.getUri()}`)
   }
 
-  const count = await University.countDocuments()
-  if (count > 0) {
-    console.log(`Clearing ${count} existing universities...`)
-    await University.deleteMany({})
-  }
+  await Country.deleteMany({})
+  await University.deleteMany({})
+  console.log("Cleared existing data")
 
-  const inserted = await seedIfEmpty()
-  if (inserted === 0) {
-    // seedIfEmpty skipped because there were docs — force insert after delete
-    const result = await University.insertMany(universities)
-    console.log(`Inserted ${result.length} universities`)
-  }
+  await Country.insertMany(countries)
+  console.log(`Inserted ${countries.length} countries`)
+
+  await University.insertMany(universities)
+  console.log(`Inserted ${universities.length} universities`)
 
   await mongoose.disconnect()
   console.log("Done.")

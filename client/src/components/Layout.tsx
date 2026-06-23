@@ -5,6 +5,7 @@ import {
   GraduationCap,
   ClipboardList,
   GitCompare,
+  Globe,
   Menu,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -17,6 +18,12 @@ const sidebarItems = [
     icon: LayoutDashboard,
     label: "Dashboard",
     end: true,
+  },
+  {
+    to: "/countries",
+    icon: Globe,
+    label: "Countries",
+    end: false,
   },
   {
     to: "/universities",

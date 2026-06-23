@@ -19,7 +19,6 @@ export interface University {
     | "Accepted"
     | "Rejected"
     | "Enrolled";
-  visaRequirements?: string;
   requiredDocuments: string[];
   gpaRequirement?: number;
   ieltsRequirement?: number;

@@ -6,6 +6,7 @@ import {
   useCreateUniversity,
   useUpdateUniversity,
   useUniversity,
+  useCountries,
 } from "@/lib/api";
 import {
   CURRENCIES,
@@ -37,6 +38,7 @@ export default function AddEditUniversity(): React.ReactElement {
   const isEdit = Boolean(id);
 
   const { data: existing, isLoading } = useUniversity(id ?? "");
+  const { data: countries } = useCountries();
   const createMutation = useCreateUniversity();
   const updateMutation = useUpdateUniversity();
 
@@ -64,7 +66,6 @@ export default function AddEditUniversity(): React.ReactElement {
       gpaRequirement: undefined,
       ieltsRequirement: undefined,
       toeflRequirement: undefined,
-      visaRequirements: "",
       requiredDocuments: [],
       scholarshipAvailable: false,
       scholarshipDetails: "",
@@ -96,7 +97,6 @@ export default function AddEditUniversity(): React.ReactElement {
         gpaRequirement: existing.gpaRequirement,
         ieltsRequirement: existing.ieltsRequirement,
         toeflRequirement: existing.toeflRequirement,
-        visaRequirements: existing.visaRequirements ?? "",
         requiredDocuments: existing.requiredDocuments,
         scholarshipAvailable: existing.scholarshipAvailable,
         scholarshipDetails: existing.scholarshipDetails ?? "",
@@ -212,11 +212,30 @@ export default function AddEditUniversity(): React.ReactElement {
               <Label htmlFor="country">
                 Country <span className="text-destructive">*</span>
               </Label>
-              <Input
-                id="country"
-                {...register("country", { required: "Country is required" })}
-                placeholder="e.g. Germany"
-              />
+              <Select
+                value={watch("country")}
+                onValueChange={(v: string) => {
+                  setValue("country", v)
+                  const selected = countries?.find((c) => c.name === v)
+                  if (selected) {
+                    setValue("tuitionCurrency", selected.currency)
+                    if (!watch("livingCostEstimate")) {
+                      setValue("livingCostEstimate", selected.livingCostEstimate)
+                    }
+                  }
+                }}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select a country..." />
+                </SelectTrigger>
+                <SelectContent>
+                  {countries?.map((c) => (
+                    <SelectItem key={c._id} value={c.name}>
+                      {c.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
               {errors.country && (
                 <p className="text-sm text-destructive">
                   {errors.country.message}
@@ -460,15 +479,6 @@ export default function AddEditUniversity(): React.ReactElement {
                     v === "" || v === undefined ? undefined : Number(v),
                 })}
                 placeholder="e.g. 90"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="visaRequirements">Visa Requirements</Label>
-              <Input
-                id="visaRequirements"
-                {...register("visaRequirements")}
-                placeholder="e.g. Student visa, blocked account"
               />
             </div>
 

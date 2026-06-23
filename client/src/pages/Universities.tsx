@@ -214,8 +214,8 @@ export default function Universities(): React.ReactElement {
             <SelectContent>
               <SelectItem value="all">All Countries</SelectItem>
               {countries?.map((c) => (
-                <SelectItem key={c} value={c}>
-                  {COUNTRY_FLAGS[c] ?? ""} {c}
+                <SelectItem key={c.name} value={c.name}>
+                  {COUNTRY_FLAGS[c.name] ?? ""} {c.name}
                 </SelectItem>
               ))}
             </SelectContent>

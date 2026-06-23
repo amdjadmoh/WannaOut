@@ -11,6 +11,7 @@ import type {
   UniversityStats,
   UniversityFormData,
 } from "@/types/university";
+import type { Country, CountryWithUniversities } from "@/types/country";
 
 const api = axios.create({
   baseURL: "http://localhost:5000/api",
@@ -143,4 +144,49 @@ export function useDeleteUniversity(): UseMutationResult<
       queryClient.invalidateQueries({ queryKey: ["universities"] });
     },
   });
+}
+
+// Countries
+
+export async function getCountries(): Promise<Country[]> {
+  const response = await api.get("/countries")
+  return response.data
+}
+
+export async function getCountry(id: string): Promise<Country> {
+  const response = await api.get(`/countries/${id}`)
+  return response.data
+}
+
+export async function getCountryWithUniversities(
+  id: string
+): Promise<CountryWithUniversities> {
+  const response = await api.get(`/countries/${id}/universities`)
+  return response.data
+}
+
+export function useCountries(): UseQueryResult<Country[]> {
+  return useQuery({
+    queryKey: ["countries"],
+    queryFn: getCountries,
+    staleTime: 5 * 60 * 1000,
+  })
+}
+
+export function useCountry(id: string): UseQueryResult<Country> {
+  return useQuery({
+    queryKey: ["countries", id],
+    queryFn: () => getCountry(id),
+    enabled: id.length > 0,
+  })
+}
+
+export function useCountryWithUniversities(
+  id: string
+): UseQueryResult<CountryWithUniversities> {
+  return useQuery({
+    queryKey: ["countries", id, "universities"],
+    queryFn: () => getCountryWithUniversities(id),
+    enabled: id.length > 0,
+  })
 }

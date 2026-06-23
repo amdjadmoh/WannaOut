@@ -30,7 +30,6 @@ export interface IUniversity {
   readonly livingCostEstimate?: number
   readonly applicationDeadline?: Date
   readonly applicationStatus: ApplicationStatus
-  readonly visaRequirements?: string
   readonly requiredDocuments: readonly string[]
   readonly gpaRequirement?: number
   readonly ieltsRequirement?: number
@@ -72,7 +71,6 @@ const universitySchema = new Schema<IUniversityDocument>(
       enum: APPLICATION_STATUSES,
       default: "Wishlist",
     },
-    visaRequirements: { type: String },
     requiredDocuments: { type: [String], default: [] },
     gpaRequirement: { type: Number },
     ieltsRequirement: { type: Number },

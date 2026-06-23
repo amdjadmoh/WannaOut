@@ -1,5 +1,5 @@
 import { useNavigate, useParams, Link } from "react-router-dom";
-import { useUniversity, useDeleteUniversity } from "@/lib/api";
+import { useUniversity, useDeleteUniversity, useCountries } from "@/lib/api";
 import { STATUS_COLORS } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -72,6 +72,7 @@ export default function UniversityDetail(): React.ReactElement {
   const { data: university, isLoading, isError, error } = useUniversity(
     id ?? "",
   );
+  const { data: countries } = useCountries();
   const deleteMutation = useDeleteUniversity();
 
   async function handleDelete(): Promise<void> {
@@ -120,6 +121,7 @@ export default function UniversityDetail(): React.ReactElement {
   }
 
   const u = university;
+  const country = countries?.find((c) => c.name === u.country);
 
   return (
     <div className="space-y-6">
@@ -274,9 +276,6 @@ export default function UniversityDetail(): React.ReactElement {
             {u.toeflRequirement && (
               <DetailRow label="TOEFL" value={u.toeflRequirement} />
             )}
-            {u.visaRequirements && (
-              <DetailRow label="Visa" value={u.visaRequirements} />
-            )}
             {u.requiredDocuments.length > 0 && (
               <div className="py-2">
                 <span className="text-sm text-muted-foreground">
@@ -294,7 +293,6 @@ export default function UniversityDetail(): React.ReactElement {
             {!u.gpaRequirement &&
               !u.ieltsRequirement &&
               !u.toeflRequirement &&
-              !u.visaRequirements &&
               u.requiredDocuments.length === 0 && (
                 <p className="text-sm text-muted-foreground">
                   No requirements specified
@@ -303,6 +301,70 @@ export default function UniversityDetail(): React.ReactElement {
           </CardContent>
         </Card>
       </div>
+
+      {/* Country Visa Info */}
+      {country && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Globe className="h-5 w-5" />
+              Visa Info — {u.country}
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              <div>
+                <p className="text-xs text-muted-foreground">Acceptance Rate</p>
+                <p className="text-2xl font-bold text-emerald-600">
+                  {country.visaAcceptanceRate}%
+                </p>
+              </div>
+              <div>
+                <p className="text-xs text-muted-foreground">Bank Account</p>
+                <p className="text-2xl font-bold">
+                  {new Intl.NumberFormat("en-US", {
+                    style: "currency",
+                    currency: country.currency,
+                    minimumFractionDigits: 0,
+                  }).format(country.visaBankAccountAmount)}
+                </p>
+              </div>
+              <div>
+                <p className="text-xs text-muted-foreground">Account Type</p>
+                <Badge
+                  variant={country.visaBankAccountLocked ? "default" : "secondary"}
+                  className={
+                    country.visaBankAccountLocked
+                      ? "bg-emerald-100 text-emerald-700"
+                      : "bg-amber-100 text-amber-700"
+                  }
+                >
+                  {country.visaBankAccountLocked ? "Blocked Account" : "Regular Account"}
+                </Badge>
+              </div>
+              <div>
+                <p className="text-xs text-muted-foreground">Living Cost / Mo</p>
+                <p className="text-2xl font-bold">
+                  {new Intl.NumberFormat("en-US", {
+                    style: "currency",
+                    currency: country.currency,
+                    minimumFractionDigits: 0,
+                  }).format(country.livingCostEstimate)}
+                </p>
+              </div>
+            </div>
+            <Separator className="my-4" />
+            <div>
+              <p className="text-xs text-muted-foreground mb-1">
+                Visa Requirements
+              </p>
+              <p className="text-sm leading-relaxed">
+                {country.visaRequirements}
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       {/* Scholarship + Application + Notes */}
       <div className="grid gap-6 lg:grid-cols-2">

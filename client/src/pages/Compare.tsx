@@ -309,10 +309,6 @@ export default function Compare(): React.ReactElement {
                   )}
                 />
                 <CompareRow
-                  label="Visa"
-                  values={selected.map((u) => u.visaRequirements)}
-                />
-                <CompareRow
                   label="Language"
                   values={selected.map((u) => u.languageOfInstruction)}
                 />
